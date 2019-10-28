@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 import sys
 sys.path.append("../")
-from src import *
+from tseq2seq import *
 from AutoBUlidVocabulary import *
 # Ts2s()
 # seq_data = [['b柯基犬是个子吗', '柯基犬'], ['哈士奇喜欢吃肉', '哈士奇'], ['猫咪喜欢吃鱼', '猫咪'], ['毛驴喜欢吃草', '毛驴'], ['牛逼的人', '人'], ['老牛拉车', '老牛'],['他将摘要抽取的指导准则设计为以下两个维度','摘要']]

@@ -30,7 +30,7 @@ setup(
         'torch==1.3.0',
         'torchvision==0.4.1',
     ],
-    packages=['src'])
+    packages=['tseq2seq'])
 
 """
 python3 setup.py sdist
