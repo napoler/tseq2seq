@@ -25,10 +25,13 @@ setup(
     install_requires=[
         'tqdm==4.36.1',
         'AutoBUlidVocabulary==0.1.0.11572302573.261918',
-        'numpy==1.17.3',
+        'numpy',
+        # 'numpy==1.17.3',
         'requests==2.22.0',
-        'torch==1.3.0',
-        'torchvision==0.4.1',
+        # 'torch==1.3.0',
+        # 'torchvision==0.4.1',
+        'torch',
+        'torchvision',
     ],
     packages=['tseq2seq'])
 

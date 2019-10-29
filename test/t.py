@@ -82,7 +82,7 @@ def cmn_to_data():
 seq_data=cmn_to_data()
 Ts2s()
 # seq_data = [['b柯基犬是个子吗', '柯基犬'], ['哈士奇喜欢吃肉', '哈士奇'], ['猫咪喜欢吃鱼', '猫咪'], ['毛驴喜欢吃草', '毛驴'], ['牛逼的人', '人'], ['老牛拉车', '老牛'],['他将摘要抽取的指导准则设计为以下两个维度','摘要']]
-ts2s=Ts2s(n_step = 30,n_hidden = 64,epoch=5,path='./')
+ts2s=Ts2s(n_step = 30,n_hidden = 64,epoch=500,path='./')
 # seq_data= rand_seq()
 ts2s.bulid_data(seq_data)
 ts2s.train()
