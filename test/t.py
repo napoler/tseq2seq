@@ -114,12 +114,12 @@ def cmn_to_data():
 
 seq_data=cmn_to_data()
 
-seq_data=seq_data[:10]
+seq_data=seq_data[:100]
 
-for i in range(1):
+for i in range(100):
     Ts2s()
     # seq_data = [['b柯基犬是个子吗', '柯基犬'], ['哈士奇喜欢吃肉', '哈士奇'], ['猫咪喜欢吃鱼', '猫咪'], ['毛驴喜欢吃草', '毛驴'], ['牛逼的人', '人'], ['老牛拉车', '老牛'],['他将摘要抽取的指导准则设计为以下两个维度','摘要']]
-    ts2s=Ts2s(n_step = 30,n_hidden = 32,epoch=2000,batch_size=20,path='./')
+    ts2s=Ts2s(n_step = 30,out_len = 20,n_hidden = 64,epoch=200,batch_size=2000,path='./')
     # seq_data= rand_seq()
     # print(seq_data)
     ts2s.bulid_data(seq_data)
@@ -129,4 +129,6 @@ for i in range(1):
     for n in t:
         print("原文: ",n[0])
         print('正确翻译: ',n[1])
-        print('生成翻译 ->', ts2s.translate([n[0]]))
+        output = ts2s.translate([n[0]])
+        print('生成翻译 ->',output)
+        print('生成翻译长度 ->',len(output))

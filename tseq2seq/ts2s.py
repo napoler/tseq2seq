@@ -24,7 +24,7 @@ dtype = torch.FloatTensor
 
 
 class Ts2s:
-  def __init__(self,n_step = 3,n_hidden = 128,epoch=1000,batch_size=20,loss_num=10,path='./'):
+  def __init__(self,n_step = 3,n_hidden = 128,epoch=1000,batch_size=20,loss_num=10,out_len = 20,path='./'):
     self.n_step = n_step  #文字长度
     self.n_hidden = n_hidden
 
@@ -36,6 +36,8 @@ class Ts2s:
     self.loss_num=loss_num
     #训练多少步
     self.epoch=epoch
+    #限制输出的长度
+    self.out_len=out_len
 
 
     # if torch.cuda.is_available():
@@ -92,10 +94,13 @@ class Ts2s:
           #       seq[i] = seq[i] + 'P' * (self.n_step - len(seq[i]))
           # # print("seq:",seq)
           # input = [self.num_dic[n] for n in seq[0]]
-          input=self.vocab.sentence_ids( seq[0],text_len=self.n_step-2)
+          #text_list=['[CLS]']+text_list+['[SEP]']  
+          input=self.vocab.sentence_ids( seq[0],text_len=self.n_step)
           # 'S' + seq[1]
-          output=self.vocab.sentence_ids( seq[1],text_len=self.n_step-2)
-          target=self.vocab.sentence_ids( seq[1],text_len=self.n_step-2)
+          output=self.vocab.sentence_ids( '[CLS] '+seq[1],text_len=self.out_len)
+          target=self.vocab.sentence_ids( seq[1]+' [SEP]',text_len=self.out_len)
+
+
           # output = [self.num_dic[n] for n in ('S' + seq[1])]
           # target = [self.num_dic[n] for n in (seq[1] + 'E')]
           # print("input",input)
@@ -157,7 +162,7 @@ class Ts2s:
     print('运行一个batch')
     # print('self.batch_size',self.batch_size)
     self.criterion = nn.CrossEntropyLoss()
-    self.optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
+    self.optimizer = torch.optim.Adam(self.model.parameters(), lr=0.1)
     self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.optimizer, T_max = (self.epoch // 9) + 1,eta_min=1e-10)
         #运行训练
     input_batch, output_batch, target_batch = self.make_batch(seq_batch)
@@ -255,6 +260,7 @@ class Ts2s:
       predict = output.data.max(2, keepdim=True)[1] # select n_class dimension
       decoded = [self.char_arr[i] for i in predict]
       print(decoded)
+      print(len(decoded))
       try:
         end = decoded.index('[SEP]')
         translated = ''.join(decoded[:end])
