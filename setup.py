@@ -24,7 +24,7 @@ setup(
     # install_requires=read_requirements('requirements.txt'),  # 指定需要安装的依赖
     install_requires=[
         'tqdm==4.36.1',
-        'AutoBUlidVocabulary==0.1.0.11572302573.261918',
+        'AutoBUlidVocabulary',
         'numpy',
         # 'numpy==1.17.3',
         'requests==2.22.0',
@@ -37,7 +37,7 @@ setup(
 
 """
 python3 setup.py sdist
-python3 setup.py install
+# python3 setup.py install
 python3 setup.py sdist upload
 
 
